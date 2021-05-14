@@ -388,12 +388,12 @@ void wbeditatpos(wstr_builder * builder, str_pos pos, wchar_t * replacement) {
         size_t len = pos.end - pos.start;
         size_t dif = pos.start - builder->capacity;
 
-        builder->buffer = (char *) realloc(builder->buffer, (builder->capacity + len + dif + 1) * sizeof(wchar_t));
+        builder->buffer = (wchar_t *) realloc(builder->buffer, (builder->capacity + len + dif + 1) * sizeof(wchar_t));
         builder->capacity = builder->capacity + len + dif + 1;
     } else if(pos.end >= builder->capacity) {
         size_t dif = pos.end - builder->capacity;
 
-        builder->buffer = (char *) realloc(builder->buffer, (builder->capacity + dif + 1) * sizeof(wchar_t));
+        builder->buffer = (wchar_t *) realloc(builder->buffer, (builder->capacity + dif + 1) * sizeof(wchar_t));
         builder->capacity = builder->capacity + dif + 1;
     }
 
@@ -402,20 +402,20 @@ void wbeditatpos(wstr_builder * builder, str_pos pos, wchar_t * replacement) {
         if(replacement)
             builder->buffer[i] = *replacement++;
         else
-            builder->buffer[i] = ' ';
+            builder->buffer[i] = L' ';
         i++;
     }
 
     int l = 0;
     while(l < pos.start) {
-        if(!builder->buffer[l]) builder->buffer[l] = ' ';
+        if(!builder->buffer[l]) builder->buffer[l] = L' ';
         l++;
     }
 }
 
 void wbeditatind(wstr_builder * builder, size_t index, wchar_t* replacement) {
     str_pos pos = {index, index+1};
-    sbeditatpos(builder, pos, replacement);
+    wbeditatpos(builder, pos, replacement);
 }
 
 int wbsize(wstr_builder *builder) {
