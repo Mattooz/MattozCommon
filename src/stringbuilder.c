@@ -205,9 +205,15 @@ int sbsize(str_builder *builder) {
 }
 
 char *cstr(str_builder *builder) {
-    char *str = calloc(sbsize(builder), sizeof(char));
+    char *str = calloc(sbsize(builder) + 1, sizeof(char));
     strcpy(str, builder->buffer);
     return str;
+}
+
+void clear(str_builder* builder) {
+    free(builder->buffer);
+    builder->buffer = calloc(DEFAULT_INI_CAPACITY, sizeof(char));
+    builder->capacity = DEFAULT_INI_CAPACITY;
 }
 
 void free_str_builder(void *builder) {
