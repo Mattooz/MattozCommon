@@ -45,6 +45,7 @@ extern void sbeditatind(str_builder *, size_t, char *);
 
 extern char * cstr(str_builder *);
 extern int sbsize(str_builder *);
+extern void clear(str_builder *);
 
 extern void free_str_builder(void *);
 
